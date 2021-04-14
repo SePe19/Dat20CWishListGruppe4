@@ -4,10 +4,10 @@ public class Wish {
     private String wishName;
     private String wishComment;
     private String wishLink;
-    private String wishRank;
-    private String wishPrice;
+    private int wishRank;
+    private double wishPrice;
 
-    public Wish(String wishName, String wishComment, String wishLink, String wishRank, String wishPrice) {
+    public Wish(String wishName, String wishComment, String wishLink, int wishRank, double wishPrice) {
         this.wishName = wishName;
         this.wishComment = wishComment;
         this.wishLink = wishLink;
@@ -39,19 +39,19 @@ public class Wish {
         this.wishLink = wishLink;
     }
 
-    public String getWishRank() {
+    public int getWishRank() {
         return wishRank;
     }
 
-    public void setWishRank(String wishRank) {
+    public void setWishRank(int wishRank) {
         this.wishRank = wishRank;
     }
 
-    public String getWishPrice() {
+    public double getWishPrice() {
         return wishPrice;
     }
 
-    public void setWishPrice(String wishPrice) {
+    public void setWishPrice(double wishPrice) {
         this.wishPrice = wishPrice;
     }
 }

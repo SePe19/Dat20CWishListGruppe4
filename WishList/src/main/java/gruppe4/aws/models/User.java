@@ -1,16 +1,20 @@
 package gruppe4.aws.models;
 
+import java.util.HashMap;
+
 public class User {
     private String name;
     private String userName;
     private String password;
     private String email;
+    private HashMap wishList;
 
-    public User(String name, String userName, String password, String email) {
+    public User(String name, String userName, String password, String email, HashMap wishList) {
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.wishList = wishList;
     }
 
     public String getName() {
@@ -43,5 +47,12 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public HashMap getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(HashMap wishList) {
+        this.wishList = wishList;
     }
 }
