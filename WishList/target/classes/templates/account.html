@@ -6,10 +6,11 @@
 </head>
 <body>
 <h1 class="accountText">Your Account</h1>
-<p>Sker der noget her?</p>
+<tr th:each="user : ${userList}">
 <div class="container">
-  <p class="text">Name: <span th:text="${user.name}"> </span></p>
-  <p class="text">Email: <span th:text="${user.email}"> </span></p>
+    <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
+    <p class="text">Name: <span th:text="${user.name}"> </span></p>
+    <p class="text">Email: <span th:text="${user.email}"> </span></p>
 </div>
 
 </body>

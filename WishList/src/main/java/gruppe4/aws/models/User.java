@@ -1,15 +1,24 @@
 package gruppe4.aws.models;
 
+
+
 import java.util.concurrent.TimeUnit;
 
 public class User {
+    private String accountName;
     private String name;
     private String email;
 
-    public User(String name, String email) {
+
+    public User(String accountName, String name, String email) {
+        this.accountName = accountName;
         this.name = name;
         this.email = email;
     }
+
+    public String getAccountName() { return accountName; }
+
+    public void setAccountName() { this.accountName = accountName; }
 
     public String getName() {
         return name;
@@ -31,8 +40,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "accountName='" + accountName + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
+
 }

@@ -13,7 +13,7 @@ public class UserController {
     private User user;
 
     public UserController() {
-        this.user = new User("name", "email");
+        this.user = new User("accountName", "name", "email");
     }
 
     @GetMapping("/account")

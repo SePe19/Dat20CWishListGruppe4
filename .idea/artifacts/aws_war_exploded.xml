@@ -31,6 +31,8 @@
           <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.30" />
           <element id="library" level="project" name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.session:spring-session-core:2.4.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.5" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.4.4" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-json:2.4.4" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.4" />
@@ -48,7 +50,6 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.23" />
           <element id="library" level="project" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.5" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">
