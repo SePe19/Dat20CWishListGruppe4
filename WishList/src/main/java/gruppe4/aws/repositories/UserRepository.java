@@ -10,7 +10,7 @@ public class UserRepository {
         ArrayList<User> allUsers = new ArrayList<>();
 
         try {
-            Connection userConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishListDatabase", "Grunt", "123");
+            Connection userConnection = DriverManager.getConnection("jdbc:mysql://52.29.72.18:3306/WishListDatabase", "Grunt", "123");
             PreparedStatement userStatement = userConnection.prepareStatement("SELECT * FROM betaUsers");
             ResultSet userRS = userStatement.executeQuery();
 
