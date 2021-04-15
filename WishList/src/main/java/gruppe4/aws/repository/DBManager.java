@@ -11,14 +11,13 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class DBManager {
-    private static String url;
-    private static String user;
-    private static String password;
-    private static Connection connection;
-    ArrayList<User> allUsers = new ArrayList<>();
 
 
     public static Connection getConnection() {
+        String url = null;
+        String user = null;
+        String password = null;
+        Connection connection  = null;
         if (connection != null) return connection;
         try (InputStream input = new FileInputStream("WishList/src/main/resources/application.properties")) {
             Properties properties = new Properties();
@@ -37,39 +36,6 @@ public class DBManager {
         return connection;
     }
 
-    public ArrayList<User> showAllUsers() {
-
-        try {
-            Connection userConnection = DriverManager.getConnection(url, user, password);
-            PreparedStatement userStatement = userConnection.prepareStatement("SELECT * FROM betaUsers");
-            ResultSet userRS = userStatement.executeQuery();
-
-            while (userRS.next()) {
-                User tmp = new User(userRS.getString(1), userRS.getString(2), userRS.getString(3));
-                allUsers.add(tmp);
-            }
-
-        } catch (SQLException error) {
-            System.out.printf(error.getMessage());
-        }
-        return allUsers;
-    }
-
-
-    public void makeUser() {
-
-        try {
-            Connection makeUserConnection = DriverManager.getConnection(url, user, password);
-            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaUsers(USERACCOUNTNAME, USERNAME, USERMAIL)" + "VALUES ('user.accountName', 'user.name', 'user.email')");
-            makeUserStatement.executeUpdate();
-
-
-
-        } catch (SQLException error) {
-            System.out.printf(error.getMessage());
-        }
-
-    }
 
 }
 
