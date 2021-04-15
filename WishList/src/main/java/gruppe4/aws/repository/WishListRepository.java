@@ -34,7 +34,7 @@ public class WishListRepository {
 
         try {
             Connection makeUserConnection = DBManager.getConnection();
-            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaWishes(USERACCOUNTNAME, USERNAME, USERMAIL)" + "VALUES ('" + wishName + "', '" + wishComment + "', '" + wishLink + "',''" + wishRank +"', '" + wishPrice + "')");
+            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaWishes(wishName, wishComment, wishLink, wishRank, wishPrice)" + "VALUES ('" + wishName + "', '" + wishComment + "', '" + wishLink + "',''" + wishRank +"', '" + wishPrice + "')");
             makeUserStatement.executeUpdate();
 
         } catch (SQLException error) {
