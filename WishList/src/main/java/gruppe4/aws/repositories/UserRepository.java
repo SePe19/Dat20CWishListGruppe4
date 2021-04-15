@@ -1,5 +1,5 @@
 package gruppe4.aws.repositories;
-
+/*
 import gruppe4.aws.models.User;
 
 import java.sql.*;
@@ -24,4 +24,4 @@ public class UserRepository {
         } return allUsers;
     }
 
-}
+}*/
