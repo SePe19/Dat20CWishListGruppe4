@@ -1,6 +1,7 @@
 package gruppe4.aws.controllers;
 
 import gruppe4.aws.models.User;
+import gruppe4.aws.repository.DBManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+    DBManager makeNewUser = new DBManager();
 
     private User user;
 
@@ -24,11 +26,14 @@ public class UserController {
 
     @GetMapping("/register")
     public String register() {
+        DBManager.getConnection();
+        makeNewUser.makeUser();
         return "/register";
     }
 
     @PostMapping("/createRegister")
     public String createRegister(@ModelAttribute User model) {
+
         this.user = model;
         return "redirect:/account";
     }
