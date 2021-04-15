@@ -9,16 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserRepository {
-    DBManager dbManager = new DBManager();
-
-
-
 
     public ArrayList<User> showAllUsers() {
         ArrayList<User> allUsers = new ArrayList<>();
 
         try {
-            Connection userConnection = dbManager.getConnection();
+            Connection userConnection = DBManager.getConnection();
             PreparedStatement userStatement = userConnection.prepareStatement("SELECT * FROM betaUsers");
             ResultSet userRS = userStatement.executeQuery();
 
@@ -33,15 +29,12 @@ public class UserRepository {
         return allUsers;
     }
 
-
     public void makeUser(String accountName, String name, String email) {
 
         try {
-            Connection makeUserConnection = dbManager.getConnection();
-            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaUsers(USERACCOUNTNAME, USERNAME, USERMAIL)" + "VALUES ('"+ accountName +"', '"+ name +"', '"+ email +"')");
+            Connection makeUserConnection = DBManager.getConnection();
+            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaUsers(USERACCOUNTNAME, USERNAME, USERMAIL)" + "VALUES ('" + accountName + "', '" + name + "', '" + email + "')");
             makeUserStatement.executeUpdate();
-
-
 
         } catch (SQLException error) {
             System.out.printf(error.getMessage());

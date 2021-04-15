@@ -1,14 +1,9 @@
 package gruppe4.aws.models;
 
-
-
-import java.util.concurrent.TimeUnit;
-
 public class User {
     private String accountName;
     private String name;
     private String email;
-
 
     public User(String accountName, String name, String email) {
         this.accountName = accountName;
@@ -16,9 +11,13 @@ public class User {
         this.email = email;
     }
 
-    public String getAccountName() { return accountName; }
+    public String getAccountName() {
+        return accountName;
+    }
 
-    public void setAccountName() { this.accountName = accountName; }
+    public void setAccountName() {
+        this.accountName = accountName;
+    }
 
     public String getName() {
         return name;
@@ -45,5 +44,4 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
-
 }

@@ -33,5 +33,4 @@ public class UserController {
         System.out.println(accountName + name + email);
         return "redirect:/account";
     }
-
 }

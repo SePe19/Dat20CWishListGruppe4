@@ -1,23 +1,19 @@
 package gruppe4.aws.repository;
 
 
-import gruppe4.aws.models.User;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class DBManager {
-
 
     public static Connection getConnection() {
         String url = null;
         String user = null;
         String password = null;
-        Connection connection  = null;
+        Connection connection = null;
         if (connection != null) return connection;
         try (InputStream input = new FileInputStream("WishList/src/main/resources/application.properties")) {
             Properties properties = new Properties();
@@ -35,8 +31,4 @@ public class DBManager {
         }
         return connection;
     }
-
-
 }
-
-

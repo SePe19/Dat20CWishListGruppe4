@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 @Controller
 public class UserListController {
-  UserRepository userRep = new UserRepository();
+    UserRepository userRep = new UserRepository();
 
-  @GetMapping("userList")
+    @GetMapping("userList")
     public String userList(Model model) {
-    DBManager.getConnection();
-      ArrayList<User> allUsers = userRep.showAllUsers();
-      model.addAttribute("userList", allUsers);
-      return "/account";
-  }
+        DBManager.getConnection();
+        ArrayList<User> allUsers = userRep.showAllUsers();
+        model.addAttribute("userList", allUsers);
+        return "/account";
+    }
 }
