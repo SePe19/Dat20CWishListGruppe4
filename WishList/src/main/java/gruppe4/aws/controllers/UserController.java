@@ -33,7 +33,6 @@ public class UserController {
 
     @PostMapping("/createRegister")
     public String createRegister(@ModelAttribute User model) {
-
         this.user = model;
         return "redirect:/account";
     }
