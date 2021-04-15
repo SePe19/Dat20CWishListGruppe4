@@ -27,12 +27,12 @@ public class UserController {
     @GetMapping("/register")
     public String register() {
         DBManager.getConnection();
-        makeNewUser.makeUser();
         return "/register";
     }
 
     @PostMapping("/createRegister")
     public String createRegister(@ModelAttribute User model) {
+        makeNewUser.makeUser();
         this.user = model;
         return "redirect:/account";
     }

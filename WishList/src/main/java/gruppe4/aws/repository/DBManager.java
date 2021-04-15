@@ -60,8 +60,10 @@ public class DBManager {
 
         try {
             Connection makeUserConnection = DriverManager.getConnection(url, user, password);
-            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaUsers(USERACCOUNTNAME, USERNAME, USERMAIL)" + "VALUES ('accountName', 'name', 'email')");
+            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement("INSERT INTO betaUsers(USERACCOUNTNAME, USERNAME, USERMAIL)" + "VALUES ('user.accountName', 'user.name', 'user.email')");
             makeUserStatement.executeUpdate();
+
+
 
         } catch (SQLException error) {
             System.out.printf(error.getMessage());
