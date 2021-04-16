@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 @Controller
 public class UserListController {
-    DBManager dbManager = new DBManager();
     UserRepository userRep = new UserRepository();
 
 
@@ -27,7 +26,7 @@ public class UserListController {
 
     @GetMapping("/registerList")
     public String register() {
-        dbManager.getConnection();
+        DBManager.getConnection();
         return "/registerList";
     }
 
