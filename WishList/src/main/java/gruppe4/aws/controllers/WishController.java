@@ -11,4 +11,12 @@ public class WishController {
     public String wish(Model model) {
         return "/wish";
     }
+
+    @GetMapping("/registerWish")
+    public String register(){
+
+        return "registerWish";
+    }
 }
+
+
