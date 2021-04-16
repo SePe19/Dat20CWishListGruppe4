@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WishController {
 
     @GetMapping("/Wish")
-    public String wish(Model model)
+    public String wish(Model model) {
         return "/wish";
-
+    }
 }
