@@ -1,6 +1,7 @@
 package gruppe4.aws.controllers;
 
 import gruppe4.aws.models.Wish;
+import gruppe4.aws.repository.DBManager;
 import gruppe4.aws.repository.WishRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +16,13 @@ public class WishController {
 
     @GetMapping("/Wish")
     public String wish(Model model) {
+    model.addAttribute("wish",wish);
         return "/wish";
     }
 
     @GetMapping("/registerWish")
     public String register() {
-
+        DBManager.getConnection();
         return "registerWish";
     }
 
