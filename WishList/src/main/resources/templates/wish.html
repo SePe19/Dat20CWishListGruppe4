@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Account Page</title>
+  <title>Wish Page</title>
 </head>
 <body>
-<h1 class="accountText">Your Account</h1>
+<h1 class="wishText">Your Wish</h1>
 <tr th:each="wish : ${wishList}">
   <div class="container">
     <p class="text">Wish Name: <span th:text="${wish.wishName}"> </span></p>

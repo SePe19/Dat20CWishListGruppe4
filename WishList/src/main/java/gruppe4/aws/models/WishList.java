@@ -5,10 +5,10 @@ import java.util.HashMap;
 public class WishList {
 
     /*private Wish wish;
-    private User user;*/
+    private User user;
     HashMap<User, Wish> wishList;
 
     public WishList(){
         wishList = new HashMap<>();
-    }
+    }*/
 }

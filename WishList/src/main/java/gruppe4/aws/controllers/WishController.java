@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class WishController {
     Wish wish = new Wish("", "", "", 0, 0);
-    WishRepository makewish = new WishRepository();
+    WishRepository makeNewWish = new WishRepository();
 
     @GetMapping("/Wish")
     public String wish(Model model) {
-    model.addAttribute("wish",wish);
+        model.addAttribute("wish", wish);
         return "/wish";
     }
 
     @GetMapping("/registerWish")
     public String register() {
         DBManager.getConnection();
-        return "registerWish";
+        return "/registerWish";
     }
 
     @PostMapping("/createWish")
     public String createRegister(@RequestParam("wishName") String wishName, @RequestParam("wishComment") String wishComment, @RequestParam("wishLink") String wishLink, @RequestParam("wishRank") int wishRank, @RequestParam("wishPrice") int wishPrice) {
-        makewish.makeWish(wishName, wishComment, wishLink, wishRank, wishPrice);
-        System.out.println();
+        makeNewWish.makeWish(wishName, wishComment, wishLink, wishRank, wishPrice);
+        System.out.println(wishName + wishComment + wishLink + wishRank + wishPrice);
         return "redirect:/wish";
     }
 }

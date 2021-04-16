@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class UserListController {
     UserRepository userRep = new UserRepository();
 
-    @GetMapping("userList")
+    @GetMapping("/userList")
     public String userList(Model model) {
         DBManager.getConnection();
         ArrayList<User> allUsers = userRep.showAllUsers();

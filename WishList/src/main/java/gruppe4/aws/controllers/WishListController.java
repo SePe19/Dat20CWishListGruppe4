@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class WishListController {
 WishRepository wishRep = new WishRepository();
-    @GetMapping("wishList")
+    @GetMapping("/wishList")
     public String wishList(Model model) {
         DBManager.getConnection();
         ArrayList<Wish> allWishes = wishRep.showAllWishes();
