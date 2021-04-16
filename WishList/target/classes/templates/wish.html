@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Wish Page</title>
+</head>
+<body>
+<h1 class="wishText">Your Wish</h1>
+<tr th:each="wish : ${wishList}">
+  <div class="container">
+    <p class="text">Wish Name: <span th:text="${wish.wishName}"> </span></p>
+    <p class="text">Wish Comment: <span th:text="${wish.wishComment}"> </span></p>
+    <p class="text">Wish Link: <span th:text="${wish.wishLink}"> </span></p>
+    <p class="text">Wish Rank: <span th:text="${wish.wishRank}"> </span></p>
+    <p class="text">Wish Price: <span th:text="${wish.wishPrice}"> </span></p>
+  </div>
+
+</body>
+</html>

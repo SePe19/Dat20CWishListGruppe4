@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Account Page</title>
+  <link th:href="@{style.css}" rel="stylesheet" />
+</head>
+<body>
+<h1 class="accountText">Wishlist Database</h1>
+<tr th:each="user : ${userList}">
+  <div class="container">
+    <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
+    <p class="text">Name: <span th:text="${user.name}"> </span></p>
+    <p class="text">Email: <span th:text="${user.email}"> </span></p>
+  </div>
+
+</body>
+</html>
