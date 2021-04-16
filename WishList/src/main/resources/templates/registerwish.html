@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register Page</title>
 </head>
 <body>
+<h1 class="registerText">Register a wish</h1>
+
+<form action="/CreateWish" method="post">
+    <div class="registrationForm">
+        Wish Name: <pre> <input type="text" name="wishName"> </pre> <br>
+        Wish Comment: <pre> <input type="text" name="wishComment"> </pre> <br>
+        Wish Link: <pre> <input type="url" name="wishLink"> </pre> <br>
+        Wish Link: <pre> <input type="number" name="wishRank"> </pre> <br>
+        Wish Link: <pre> <input type="number" name="wishPrice"> </pre> <br>
+        <input type="submit" value="Create Wish">
+
+    </div>
+</form>
 
 </body>
 </html>
