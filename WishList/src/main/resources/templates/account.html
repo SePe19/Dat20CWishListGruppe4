@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Page</title>
+    <link th:href="@{style.css}" rel="stylesheet" />
 </head>
 <body>
-<h1 class="accountText">Your Account</h1>
+<h1 class="accountText">Account</h1>
 <tr th:each="user : ${userList}">
 <div class="container">
     <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
