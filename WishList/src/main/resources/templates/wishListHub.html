@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-
+<ul>
+    <li style="float:left"><a th:href="@{frontPage}">Home</a></li>
+    <li style="float:right"><a th:href="@{login}">Login</a></li>
+    <li style="float:right"><a th:href="@{register}">Create User</a></li>
+</ul>
+<h1>WishList Hub</h1>
+<h2>Dare to wish</h2>
 </body>
 </html>
