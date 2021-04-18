@@ -16,14 +16,16 @@ import java.util.ArrayList;
 
 @Controller
 public class AccountController {
-  User user = new User("accountNameTest", "name", "email");
+  User user = new User("accountNameTestJoJo", "name", "email");
   UserRepository newUser = new UserRepository();
 
   @GetMapping("/account")
-  public String account(Model model) {
+  public String account(@RequestParam("accountName") String accountName, Model model, HttpServletRequest request) {
     DBManager.getConnection();
-    ArrayList<User> getUser = newUser.showAllUsers();
-    model.addAttribute("user", getUser);
+    newUser.getAccount(accountName);
+    HttpSession session = request.getSession();
+    session.getAttribute(accountName);
+    model.addAttribute("user", accountName);
     return "account";
   }
 
@@ -33,18 +35,12 @@ public class AccountController {
     return "register";
   }
 
-  @RequestMapping("/register")
-  public String requestRegister() {
-    return "register";
-  }
 
   @PostMapping("/doRegister")
-  public String doRegister(@RequestParam("accountName") String accountName, HttpServletRequest request) {
-    newUser.getAccount(accountName);
+  public String doRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email, HttpServletRequest request) {
+    newUser.makeUser(accountName, name, email);
     HttpSession session = request.getSession();
-    session.setAttribute("accountName", accountName);
+    session.setAttribute("accountName", user);
     return "redirect:/account";
   }
-
-
 }
