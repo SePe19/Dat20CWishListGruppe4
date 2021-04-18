@@ -12,16 +12,6 @@ public class HomeController {
         return "frontPage.html";
     }
 
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping("/register")
-    public String register() {
-        return "register";
-    }
-
     @GetMapping("/wishListHub")
     public String wishListHubController() {
         return "wishListHub";
