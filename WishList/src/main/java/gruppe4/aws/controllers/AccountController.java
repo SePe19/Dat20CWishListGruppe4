@@ -30,7 +30,7 @@ public class AccountController {
 
   @GetMapping("/doRegister")
   public String doRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email) {
-    newUser.createAccount(accountName, name, email);
+    newUser.makeUser(accountName, name, email);
     return "redirect:/account";
   }
 

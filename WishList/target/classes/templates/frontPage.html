@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="frontPage.css">
     <meta charset="UTF-8">
     <title>WishList</title>
+    <link rel="icon" type="image/png" href="https://www.jing.fm/clipimg/full/23-230228_download-wish-list-romeo-landinez-co-icon.png"/>
 </head>
 <body>
+<header>
+    <ul>
+        <li style="float:left"><a class="active" href="#home">Home</a></li>
+        <li style="float:right"><a th:href="@{login}">Login</a></li>
+        <li style="float:right"><a th:href="@{register}">Create User</a></li>
+    </ul>
+    <h1>WishList</h1>
+    <h2>Where your wishes come true</h2>
+</header>
 
+</head>
 </body>
 </html>
