@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40bad539-6271-49ec-b27d-4ba45ec25b56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/WishList/src/main/resources/templates/wishListHub.html" afterDir="false" />
+    <list default="true" id="40bad539-6271-49ec-b27d-4ba45ec25b56" name="Default Changelist" comment="Fifth able to show single account from DB query">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_04_2021_14_11__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_04_2021_14_11__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/AccountController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/static/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/static/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/frontPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/frontPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/registerList.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/registerList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/registerwish.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/registerwish.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/wish.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/wish.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/wishlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/wishlist.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WishListSafety" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />

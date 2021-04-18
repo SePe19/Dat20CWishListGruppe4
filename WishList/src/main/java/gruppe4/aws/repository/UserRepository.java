@@ -43,21 +43,26 @@ public class UserRepository {
     }
 
 
-    public String createAccount(String accountName, String name, String email) {
+    public void getAccount(String accountName) {
         Connection accountConnection = DBManager.getConnection();
         try {
-            PreparedStatement accountStatement = accountConnection.prepareStatement("SELECT USERACCOUNTNAME, USERNAME, USERMAIL FROM betaUsers WHERE USERACCOUNTNAME = '" + accountName + "' USERNAME = '" + name + "' USERMAIL = '" + email + "' ");
+            PreparedStatement accountStatement = accountConnection.prepareStatement("SELECT * FROM betaUsers WHERE USERACCOUNTNAME = ?");
+            accountStatement.setString(1, accountName);
+
 
 
             ResultSet accountRS = accountStatement.executeQuery();
             if(accountRS.next()) {
-
+                accountRS.getString(1);
+                accountRS.getString(2);
+                accountRS.getString(3);
 
             }
 
         } catch (SQLException error) {
             System.out.println(error.getMessage());
         }
-        return accountName;
+
+
     }
 }

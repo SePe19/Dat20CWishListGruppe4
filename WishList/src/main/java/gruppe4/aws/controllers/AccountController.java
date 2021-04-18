@@ -6,9 +6,12 @@ import gruppe4.aws.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
@@ -19,7 +22,8 @@ public class AccountController {
   @GetMapping("/account")
   public String account(Model model) {
     DBManager.getConnection();
-    model.addAttribute("user", user);
+    ArrayList<User> getUser = newUser.showAllUsers();
+    model.addAttribute("user", getUser);
     return "account";
   }
 
@@ -34,9 +38,11 @@ public class AccountController {
     return "register";
   }
 
-  @GetMapping("/doRegister")
-  public String doRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email) {
-    newUser.makeUser(accountName, name, email);
+  @PostMapping("/doRegister")
+  public String doRegister(@RequestParam("accountName") String accountName, HttpServletRequest request) {
+    newUser.getAccount(accountName);
+    HttpSession session = request.getSession();
+    session.setAttribute("accountName", accountName);
     return "redirect:/account";
   }
 

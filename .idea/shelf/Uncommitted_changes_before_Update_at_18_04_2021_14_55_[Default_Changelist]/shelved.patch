@@ -1,0 +1,222 @@
+Index: WishList/src/main/java/gruppe4/aws/controllers/AccountController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gruppe4.aws.controllers;\r\n\r\nimport gruppe4.aws.models.User;\r\nimport gruppe4.aws.repository.DBManager;\r\nimport gruppe4.aws.repository.UserRepository;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestParam;\r\n\r\nimport java.util.ArrayList;\r\n\r\n@Controller\r\npublic class AccountController {\r\n  User user = new User(\"accountNameTest\", \"name\", \"email\");\r\n  UserRepository newUser = new UserRepository();\r\n\r\n  @GetMapping(\"/account\")\r\n  public String account(Model model) {\r\n    DBManager.getConnection();\r\n    model.addAttribute(\"user\", user);\r\n    return \"account\";\r\n  }\r\n\r\n  @GetMapping(\"/register\")\r\n  public String register() {\r\n    DBManager.getConnection();\r\n    return \"register\";\r\n  }\r\n\r\n  @GetMapping(\"/doRegister\")\r\n  public String doRegister(@RequestParam(\"accountName\") String accountName, @RequestParam(\"name\") String name, @RequestParam(\"email\") String email) {\r\n    newUser.createAccount(accountName, name, email);\r\n    return \"redirect:/account\";\r\n  }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java b/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java
+--- a/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java	
++++ b/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java	
+@@ -6,19 +6,24 @@
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PostMapping;
+ import org.springframework.web.bind.annotation.RequestParam;
+ 
++import javax.servlet.http.HttpServlet;
++import javax.servlet.http.HttpServletRequest;
++import javax.servlet.http.HttpSession;
+ import java.util.ArrayList;
+ 
+ @Controller
+ public class AccountController {
+-  User user = new User("accountNameTest", "name", "email");
++  User user = new User("accountName", "name", "email");
+   UserRepository newUser = new UserRepository();
+ 
+   @GetMapping("/account")
+   public String account(Model model) {
+     DBManager.getConnection();
+-    model.addAttribute("user", user);
++    ArrayList<User> getUser = newUser.showAllUsers();
++    model.addAttribute("user", getUser);
+     return "account";
+   }
+ 
+@@ -28,9 +33,11 @@
+     return "register";
+   }
+ 
+-  @GetMapping("/doRegister")
+-  public String doRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email) {
+-    newUser.createAccount(accountName, name, email);
++  @PostMapping("/doRegister")
++  public String doRegister(@RequestParam("accountName") String accountName, HttpServletRequest request) {
++    newUser.getAccount(accountName);
++    HttpSession session = request.getSession();
++    session.setAttribute("accountName", accountName);
+     return "redirect:/account";
+   }
+ 
+Index: WishList/src/main/resources/templates/account.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Account Page</title>\r\n    <link th:href=\"@{style.css}\" rel=\"stylesheet\" />\r\n</head>\r\n<body>\r\n<h1 class=\"accountText\">Account</h1>\r\n<div class=\"container\">\r\n    <p class=\"text\">Account Name: <span th:text=\"${user.accountName}\"> </span></p>\r\n    <p class=\"text\">Name: <span th:text=\"${user.name}\"> </span></p>\r\n    <p class=\"text\">Email: <span th:text=\"${user.email}\"> </span></p>\r\n</div>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/WishList/src/main/resources/templates/account.html b/WishList/src/main/resources/templates/account.html
+--- a/WishList/src/main/resources/templates/account.html	
++++ b/WishList/src/main/resources/templates/account.html	
+@@ -7,6 +7,7 @@
+ </head>
+ <body>
+ <h1 class="accountText">Account</h1>
++<tr th:each="user : ${user}">
+ <div class="container">
+     <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
+     <p class="text">Name: <span th:text="${user.name}"> </span></p>
+Index: WishList/src/main/java/gruppe4/aws/repository/UserRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gruppe4.aws.repository;\r\n\r\nimport gruppe4.aws.models.User;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.ArrayList;\r\n\r\npublic class UserRepository {\r\n\r\n    public ArrayList<User> showAllUsers() {\r\n        ArrayList<User> allUsers = new ArrayList<>();\r\n\r\n        try {\r\n            Connection userConnection = DBManager.getConnection();\r\n            PreparedStatement userStatement = userConnection.prepareStatement(\"SELECT * FROM betaUsers\");\r\n            ResultSet userRS = userStatement.executeQuery();\r\n\r\n            while (userRS.next()) {\r\n                User tmp = new User(userRS.getString(1), userRS.getString(2), userRS.getString(3));\r\n                allUsers.add(tmp);\r\n            }\r\n\r\n        } catch (SQLException error) {\r\n            System.out.printf(error.getMessage());\r\n        }\r\n        return allUsers;\r\n    }\r\n\r\n    public void makeUser(String accountName, String name, String email) {\r\n\r\n        try {\r\n            Connection makeUserConnection = DBManager.getConnection();\r\n            PreparedStatement makeUserStatement = makeUserConnection.prepareStatement(\"INSERT INTO betaUsers(USERACCOUNTNAME, USERNAME, USERMAIL)\" + \"VALUES ('\" + accountName + \"', '\" + name + \"', '\" + email + \"')\");\r\n            makeUserStatement.executeUpdate();\r\n\r\n        } catch (SQLException error) {\r\n            System.out.printf(error.getMessage());\r\n        }\r\n\r\n    }\r\n\r\n\r\n    public String createAccount(String accountName, String name, String email) {\r\n        Connection accountConnection = DBManager.getConnection();\r\n        try {\r\n            PreparedStatement accountStatement = accountConnection.prepareStatement(\"SELECT USERACCOUNTNAME, USERNAME, USERMAIL FROM betaUsers WHERE USERACCOUNTNAME = '\" + accountName + \"' USERNAME = '\" + name + \"' USERMAIL = '\" + email + \"' \");\r\n\r\n\r\n            ResultSet accountRS = accountStatement.executeQuery();\r\n            if(accountRS.next()) {\r\n\r\n\r\n            }\r\n\r\n        } catch (SQLException error) {\r\n            System.out.println(error.getMessage());\r\n        }\r\n        return accountName;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java b/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java
+--- a/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java	
++++ b/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java	
+@@ -43,21 +43,26 @@
+     }
+ 
+ 
+-    public String createAccount(String accountName, String name, String email) {
++    public void getAccount(String accountName) {
+         Connection accountConnection = DBManager.getConnection();
+         try {
+-            PreparedStatement accountStatement = accountConnection.prepareStatement("SELECT USERACCOUNTNAME, USERNAME, USERMAIL FROM betaUsers WHERE USERACCOUNTNAME = '" + accountName + "' USERNAME = '" + name + "' USERMAIL = '" + email + "' ");
++            PreparedStatement accountStatement = accountConnection.prepareStatement("SELECT * FROM betaUsers WHERE USERACCOUNTNAME = ?");
++            accountStatement.setString(1, accountName);
++
+ 
+ 
+             ResultSet accountRS = accountStatement.executeQuery();
+             if(accountRS.next()) {
+-
++                accountRS.getString(1);
++                accountRS.getString(2);
++                accountRS.getString(3);
+ 
+             }
+ 
+         } catch (SQLException error) {
+             System.out.println(error.getMessage());
+         }
+-        return accountName;
++
++
+     }
+ }
+\ No newline at end of file
+Index: WishList/target/classes/templates/account.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Account Page</title>\r\n    <link th:href=\"@{style.css}\" rel=\"stylesheet\" />\r\n</head>\r\n<body>\r\n<h1 class=\"accountText\">Account</h1>\r\n<div class=\"container\">\r\n    <p class=\"text\">Account Name: <span th:text=\"${user.accountName}\"> </span></p>\r\n    <p class=\"text\">Name: <span th:text=\"${user.name}\"> </span></p>\r\n    <p class=\"text\">Email: <span th:text=\"${user.email}\"> </span></p>\r\n</div>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/WishList/target/classes/templates/account.html b/WishList/target/classes/templates/account.html
+--- a/WishList/target/classes/templates/account.html	
++++ b/WishList/target/classes/templates/account.html	
+@@ -7,6 +7,7 @@
+ </head>
+ <body>
+ <h1 class="accountText">Account</h1>
++<tr th:each="user : ${user}">
+ <div class="container">
+     <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
+     <p class="text">Name: <span th:text="${user.name}"> </span></p>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"40bad539-6271-49ec-b27d-4ba45ec25b56\" name=\"Default Changelist\" comment=\"Fourth seperated single account from database\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/UserListController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/UserListController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/src/main/resources/templates/account.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/src/main/resources/templates/account.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/src/main/resources/templates/register.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/src/main/resources/templates/register.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/AccountController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/AccountController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/UserListController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/UserListController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/repository/UserRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/repository/UserRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/target/classes/templates/account.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/target/classes/templates/account.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WishList/target/classes/templates/register.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WishList/target/classes/templates/register.html\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1rFc33ajzc7yy23NYa5pnkchA8u\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DefaultHtmlFileTemplate\" value=\"HTML File\" />\r\n    <property name=\"RequestMappingsPanelOrder0\" value=\"0\" />\r\n    <property name=\"RequestMappingsPanelOrder1\" value=\"1\" />\r\n    <property name=\"RequestMappingsPanelWidth0\" value=\"75\" />\r\n    <property name=\"RequestMappingsPanelWidth1\" value=\"75\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"ArquillianJUnit\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AwsApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"aws\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"gruppe4.aws.AwsApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"40bad539-6271-49ec-b27d-4ba45ec25b56\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1618575076147</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1618575076147</updated>\r\n      <workItem from=\"1618575077432\" duration=\"5729000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Fourth seperated single account from database\">\r\n      <created>1618575869112</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1618575869112</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Fourth seperated single account from database\">\r\n      <created>1618575884111</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1618575884111</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Fourth seperated single account from database\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Fourth seperated single account from database\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,18 +4,14 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="40bad539-6271-49ec-b27d-4ba45ec25b56" name="Default Changelist" comment="Fourth seperated single account from database">
++    <list default="true" id="40bad539-6271-49ec-b27d-4ba45ec25b56" name="Default Changelist" comment="Fifth able to show single account from DB query">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/AccountController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/UserListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/controllers/UserListController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/java/gruppe4/aws/repository/UserRepository.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/WishList/src/main/resources/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/resources/templates/account.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/WishList/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/src/main/resources/templates/register.html" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/AccountController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/UserListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/controllers/UserListController.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/gruppe4/aws/repository/UserRepository.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/account.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/WishList/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/WishList/target/classes/templates/register.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -48,19 +44,9 @@
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="aspect.path.notification.shown" value="true" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+   </component>
+   <component name="RunManager">
+-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+-      <option name="arquillianRunConfiguration">
+-        <value>
+-          <option name="containerStateName" value="" />
+-        </value>
+-      </option>
+-      <option name="TEST_OBJECT" value="class" />
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+     <configuration name="AwsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+       <module name="aws" />
+       <option name="SPRING_BOOT_MAIN_CLASS" value="gruppe4.aws.AwsApplication" />
+@@ -77,7 +63,9 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1618575076147</updated>
+-      <workItem from="1618575077432" duration="5729000" />
++      <workItem from="1618575077432" duration="6051000" />
++      <workItem from="1618582589079" duration="755000" />
++      <workItem from="1618737976873" duration="12402000" />
+     </task>
+     <task id="LOCAL-00001" summary="Fourth seperated single account from database">
+       <created>1618575869112</created>
+@@ -93,7 +81,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1618575884111</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="Fifth able to show single account from DB query">
++      <created>1618581073573</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1618581073573</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -109,9 +104,11 @@
+         </entry>
+       </map>
+     </option>
++    <option name="oldMeFiltersMigrated" value="true" />
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Fourth seperated single account from database" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Fourth seperated single account from database" />
++    <MESSAGE value="Fifth able to show single account from DB query" />
++    <option name="LAST_COMMIT_MESSAGE" value="Fifth able to show single account from DB query" />
+   </component>
+ </project>
+\ No newline at end of file

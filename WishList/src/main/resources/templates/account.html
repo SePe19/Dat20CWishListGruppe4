@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1 class="accountText">Account</h1>
+<tr th:each="user : ${user}">
 <div class="container">
     <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
     <p class="text">Name: <span th:text="${user.name}"> </span></p>
