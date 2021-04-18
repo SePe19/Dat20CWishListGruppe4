@@ -6,6 +6,15 @@ header {
     text-align: center;
 }
 
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.7em;
+}
+
 main {
     margin: 12px;
     max-width: 540px;
@@ -35,6 +44,7 @@ ul {
 
 li {
     float: left;
+    font-size: 1.3em;
 }
 
 li a {
