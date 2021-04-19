@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class WishController {
-    Wish wish = new Wish("", "", "", 0, 0);
     WishRepository makeNewWish = new WishRepository();
 
     @GetMapping("/Wish")
     public String wish(Model model) {
-        model.addAttribute("wish", wish);
         return "/wish";
     }
 
@@ -27,11 +28,11 @@ public class WishController {
     }
 
     @PostMapping("/createWish")
-    public String createWish(@RequestParam("wishName") String wishName, @RequestParam("wishComment") String wishComment, @RequestParam("wishLink") String wishLink, @RequestParam("wishRank") int wishRank, @RequestParam("wishPrice") double wishPrice) {
-        makeNewWish.makeWish(wishName, wishComment, wishLink, wishRank, wishPrice);
-        System.out.println(wishName + wishComment + wishLink + wishRank + wishPrice);
+    public String createWish(HttpServletRequest request, @RequestParam("wishName") String wishName, @RequestParam("wishComment") String wishComment, @RequestParam("wishLink") String wishLink, @RequestParam("wishRank") int wishRank, @RequestParam("wishPrice") double wishPrice) {
+        HttpSession session = request.getSession();
+        String accountName = (String) session.getAttribute("accountName");
+        makeNewWish.makeWish(wishName, wishComment, wishLink, wishRank, wishPrice, accountName);
+
         return "redirect:/wishList";
     }
 }
-
-

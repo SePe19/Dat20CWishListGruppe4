@@ -51,9 +51,9 @@ public class UserRepository {
             accountStatement.setString(1, accountName);
 
             ResultSet accountRS = accountStatement.executeQuery();
-            if(accountRS.next()) {
+            if (accountRS.next()) {
 
-                tmp = new User(accountRS.getString(1),accountRS.getString(2),accountRS.getString(3));
+                tmp = new User(accountRS.getString(1), accountRS.getString(2), accountRS.getString(3));
             }
 
         } catch (SQLException error) {
@@ -62,7 +62,7 @@ public class UserRepository {
         return tmp;
     }
 
-    public Boolean validateAccount(String accountName){
+    public Boolean validateAccount(String accountName) {
         Connection accountConnection = DBManager.getConnection();
         try {
             PreparedStatement accountStatement = accountConnection.prepareStatement
@@ -70,10 +70,11 @@ public class UserRepository {
             accountStatement.setString(1, accountName);
 
             ResultSet accountRS = accountStatement.executeQuery();
-            while(accountRS.next()) {
+            while (accountRS.next()) {
 
-                if (accountRS.equals(accountName)){
-                } return true;
+                if (accountRS.equals(accountName)) {
+                }
+                return true;
             }
 
         } catch (SQLException error) {

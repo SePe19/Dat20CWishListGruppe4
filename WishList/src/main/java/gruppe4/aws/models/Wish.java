@@ -1,18 +1,22 @@
 package gruppe4.aws.models;
 
 public class Wish {
+    private int wishID;
     private String wishName;
     private String wishComment;
     private String wishLink;
     private int wishRank;
     private double wishPrice;
+    private String accountName;
 
-    public Wish(String wishName, String wishComment, String wishLink, int wishRank, double wishPrice) {
+    public Wish(int wishID, String wishName, String wishComment, String wishLink, int wishRank, double wishPrice, String accountName) {
+        this.wishID = wishID;
         this.wishName = wishName;
         this.wishComment = wishComment;
         this.wishLink = wishLink;
         this.wishRank = wishRank;
         this.wishPrice = wishPrice;
+        this.accountName = accountName;
     }
 
     public String getWishName() {
@@ -53,5 +57,21 @@ public class Wish {
 
     public void setWishPrice(double wishPrice) {
         this.wishPrice = wishPrice;
+    }
+
+    public int getWishID() {
+        return wishID;
+    }
+
+    public void setWishID(int wishID) {
+        this.wishID = wishID;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 }
