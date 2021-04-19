@@ -30,7 +30,7 @@ public class WishController {
     public String createWish(@RequestParam("wishName") String wishName, @RequestParam("wishComment") String wishComment, @RequestParam("wishLink") String wishLink, @RequestParam("wishRank") int wishRank, @RequestParam("wishPrice") double wishPrice) {
         makeNewWish.makeWish(wishName, wishComment, wishLink, wishRank, wishPrice);
         System.out.println(wishName + wishComment + wishLink + wishRank + wishPrice);
-        return "redirect:/wish";
+        return "redirect:/wishList";
     }
 }
 

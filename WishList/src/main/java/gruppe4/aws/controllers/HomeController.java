@@ -13,7 +13,7 @@ public class HomeController {
     }
 
     @GetMapping("/wishListHub")
-    public String wishListHubController() {
-        return "wishListHub";
+    public String wishListHub() {
+        return "wishListHub.html";
     }
 }

@@ -2,16 +2,17 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>WishList Overview</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <ul>
-    <li style="float:left"><a th:href="@{frontPage}">Home</a></li>
-    <li style="float:right"><a th:href="@{login}">Login</a></li>
-    <li style="float:right"><a th:href="@{register}">Create User</a></li>
+    <li style="float:right"><a th:href="@{account}">Account</a></li>
+    <li style="float:left"><a class="active" th:href="@{wishListHub}">WishList Overview</a></li>
+    <li style="float:left"><a th:href="@{registerWish}">Create Wish</a></li>
+    <li style="float:left"><a th:href="@{wishList}">Your WishList</a></li>
 </ul>
-<h1>WishList Hub</h1>
+<h1>WishList Overview</h1>
 <h2>Dare to wish</h2>
 </body>
 </html>
