@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 @Controller
 public class AccountController {
-  User user = new User("accountName", "name", "email");
   UserRepository newUser = new UserRepository();
 
   @GetMapping("/account")
@@ -40,7 +39,7 @@ public class AccountController {
   public String doRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email, HttpServletRequest request) {
     newUser.makeUser(accountName, name, email);
     HttpSession session = request.getSession();
-    session.setAttribute("accountName", user);
+    session.setAttribute("accountName", accountName);
     return "redirect:/account?accountName=" + accountName;
   }
 }
