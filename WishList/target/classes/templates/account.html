@@ -7,6 +7,7 @@
 </head>
 <body>
 <ul>
+    <li style="float:right"><a th:href="@{logout}">Log Out</a></li>
     <li style="float:right"><a class="active" th:href="@{account}">Account</a></li>
     <li style="float:left"><a th:href="@{wishListHub}">WishListHub</a></li>
     <li style="float:left"><a th:href="@{registerWish}">Create Wish</a></li>
@@ -15,9 +16,9 @@
 <h1 class="accountText">Account</h1>
 
 <div class="container">
-    <p class="text">Account Name: <span th:text="${user.getAccountName}"> </span></p>
-    <p class="text">Name: <span th:text="${user.getName()}"> </span></p>
-    <p class="text">Email: <span th:text="${user.getEmail}"> </span></p>
+    <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
+    <p class="text">Name: <span th:text="${user.name}"> </span></p>
+    <p class="text">Email: <span th:text="${user.email}"> </span></p>
 </div>
 
 </body>

@@ -18,9 +18,10 @@ public class LoginController {
     @PostMapping("/login")
     public String submitLogin(@RequestParam(name = "accountName") String accountName, HttpServletRequest request) {
         DBManager.getConnection();
+        HttpSession session = request.getSession();
+        session.setAttribute("accountName", accountName);
+        session.getAttribute("accountName");
         if (userRepository.validateAccount(accountName) == true) {
-            HttpSession session = request.getSession();
-            session.setAttribute("accountName", accountName);
             return "redirect:/wishListHub";
         } else {
             return "redirect:/login";

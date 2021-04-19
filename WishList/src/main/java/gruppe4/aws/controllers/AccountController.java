@@ -19,11 +19,15 @@ public class AccountController {
     UserRepository newUser = new UserRepository();
 
     @GetMapping("/account")
-    public String account(@RequestParam("accountName") String accountName, Model model, HttpServletRequest request) {
+    public String account(Model model, HttpServletRequest request) {
         DBManager.getConnection();
-        User currentUser = newUser.getAccount(accountName);
         HttpSession session = request.getSession();
-        session.getAttribute("accountName");
+        String accountName = session.getAttribute("accountName").toString();
+
+        User currentUser = newUser.getAccount(accountName);
+        if(currentUser == null)
+            return "redirect:/login";
+
         model.addAttribute("user", currentUser);
         return "account";
     }
@@ -36,6 +40,7 @@ public class AccountController {
 
     @PostMapping("/doRegister")
     public String doRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email, HttpServletRequest request) {
+        DBManager.getConnection();
         newUser.makeUser(accountName, name, email);
         HttpSession session = request.getSession();
         session.setAttribute("accountName", accountName);

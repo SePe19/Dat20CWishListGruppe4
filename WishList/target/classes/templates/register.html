@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Register Account Page</title>
@@ -10,9 +10,9 @@
 
 <form action="/doRegister" method="post">
     <div class="registrationForm">
-        Account Name: <pre> <input type="text" name="accountName"> </pre> <br>
-        Name: <pre> <input type="text" name="name"> </pre> <br>
-        E-Mail: <pre> <input type="email" name="email"> </pre> <br>
+        Account Name: <pre> <input type="text" th:name="accountName"> </pre> <br>
+        Name: <pre> <input type="text" th:name="name"> </pre> <br>
+        E-Mail: <pre> <input type="email" th:name="email"> </pre> <br>
         <input type="submit" value="Create Account">
 
     </div>
