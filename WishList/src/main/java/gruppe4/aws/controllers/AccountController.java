@@ -22,10 +22,10 @@ public class AccountController {
   @GetMapping("/account")
   public String account(@RequestParam("accountName") String accountName, Model model, HttpServletRequest request) {
     DBManager.getConnection();
-    newUser.getAccount(accountName);
+    User currentUser = newUser.getAccount(accountName);
     HttpSession session = request.getSession();
-    session.getAttribute(accountName);
-    model.addAttribute("user", accountName);
+    session.getAttribute("accountName");
+    model.addAttribute("user", currentUser);
     return "account";
   }
 
@@ -41,6 +41,6 @@ public class AccountController {
     newUser.makeUser(accountName, name, email);
     HttpSession session = request.getSession();
     session.setAttribute("accountName", user);
-    return "redirect:/account";
+    return "redirect:/account?accountName=" + accountName;
   }
 }
