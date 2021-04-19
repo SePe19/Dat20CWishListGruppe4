@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @Controller
 public class AccountController {
-  User user = new User("accountNameTestJoJo", "name", "email");
+  User user = new User("accountName", "name", "email");
   UserRepository newUser = new UserRepository();
 
   @GetMapping("/account")
