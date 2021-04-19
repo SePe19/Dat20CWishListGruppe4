@@ -60,6 +60,26 @@ public class UserRepository {
             System.out.println(error.getMessage());
         }
         return tmp;
+    }
 
+    public Boolean validateAccount(String accountName){
+        Connection accountConnection = DBManager.getConnection();
+        try {
+            PreparedStatement accountStatement = accountConnection.prepareStatement
+                    ("SELECT USERACCOUNTNAME FROM betaUsers WHERE USERACCOUNTNAME = ?");
+            accountStatement.setString(1, accountName);
+
+            ResultSet accountRS = accountStatement.executeQuery();
+            while(accountRS.next()) {
+
+                if (accountRS.equals(accountName)){
+                } return true;
+            }
+
+        } catch (SQLException error) {
+            System.out.println(error.getMessage());
+        }
+
+        return false;
     }
 }
