@@ -23,7 +23,7 @@ public class WishController {
         String accountName = (String) session.getAttribute("accountName");
         ArrayList<Wish> userWishList = makeNewWish.getAccountWishList(accountName);
         model.addAttribute("userWishList", userWishList);
-        return "/wish";
+        return "wishList";
     }
 
     @PostMapping("/deleteWish")

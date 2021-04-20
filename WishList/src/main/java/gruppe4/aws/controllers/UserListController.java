@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 @Controller
 public class UserListController {
+
+    //Vi anvender ikke denne klasse, men vi benyttede den til at se om der var hul igennem.
+
     UserRepository userRep = new UserRepository();
 
 
@@ -23,17 +26,4 @@ public class UserListController {
         model.addAttribute("userList", allUsers);
         return "/userList";
     }
-
-    @GetMapping("/registerList")
-    public String register() {
-        DBManager.getConnection();
-        return "/registerList";
-    }
-
-    @PostMapping("/doRegisterList")
-    public String createRegister(@RequestParam("accountName") String accountName, @RequestParam("name") String name, @RequestParam("email") String email) {
-        userRep.makeUser(accountName, name, email);
-        return "redirect:/userList";
-    }
-
 }
