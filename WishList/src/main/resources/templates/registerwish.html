@@ -18,14 +18,12 @@
 
 <form action="/createWish" method="post">
     <div class="registrationForm">
-        Wish Name: <pre> <input type="text" name="wishName"> </pre> <br>
-        Wish Comment: <pre> <input type="text" name="wishComment"> </pre> <br>
-        Wish Link: <pre> <input type="url" name="wishLink"> </pre> <br>
-        Wish Rank: <pre> <input type="number" name="wishRank"> </pre> <br>
+        Wish Rank: <pre> <input type="number" name="wishRank" required placeholder=" 1 for most desired"> </pre> <br>
+        Wish Name: <pre> <input type="text" name="wishName"required placeholder=" Your name"> </pre> <br>
+        Wish Comment: <pre> <input type="text" name="wishComment" required placeholder=" Write comment here..."> </pre> <br>
+        Wish Link: <pre> <input type="url" name="wishLink" required placeholder=" World Wide Web"> </pre> <br>
         Wish Price: <pre> <input type="number" name="wishPrice" required placeholder=" DKK"> </pre> <br>
         <input type="submit" value="Create Wish">
-
-    </div>
 </form>
 
 </body>
