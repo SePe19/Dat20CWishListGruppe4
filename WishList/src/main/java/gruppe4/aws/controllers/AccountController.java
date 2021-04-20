@@ -45,4 +45,9 @@ public class AccountController {
         session.setAttribute("accountName", accountName);
         return "redirect:/account?accountName=" + accountName;
     }
+    @PostMapping("/deleteAccount")
+    public String deleteWish(@RequestParam("accountName")String accountName){
+        newUser.deleteUser(accountName);
+        return "redirect:/account";
+    }
 }

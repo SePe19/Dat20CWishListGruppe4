@@ -17,6 +17,7 @@
 
 <tr th:each="userWishList : ${userWishList}">
   <div class="container">
+    <p class="text">Wish number: <span th:text="${userWishList.wishID}"> </span></p>
     <p class="text">Account Name: <span th:text="${userWishList.getAccountName()}"> </span></p>
     <p class="text">Wish Name: <span th:text="${userWishList.wishName}"> </span></p>
     <p class="text">Wish Comment: <span th:text="${userWishList.wishComment}"> </span></p>
@@ -24,6 +25,12 @@
     <p class="text">Wish Rank: <span th:text="${userWishList.wishRank}"> </span></p>
     <p class="text">Wish Price: <span th:text="${userWishList.wishPrice}"> </span></p><br><br>
   </div>
-
+</tr>
+<form action="/deleteWish" method="post">
+  <div class="deletebutton">
+  <p class="text"> Delete wish: <pre> <input type="number" required placeholder="Wish Number" th:name="wishID"> </pre> <br>
+  <input type="submit" value="Delete">
+  </div>
+</form>
 </body>
 </html>

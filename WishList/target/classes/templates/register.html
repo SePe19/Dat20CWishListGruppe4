@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Register Account Page</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="frontPage.css">
 </head>
 <body>
+<ul>
+    <li style="float:left"><a th:href="@{frontPage}">Home</a></li>
+    <li style="float:right"><a th:href="@{login}">Login</a></li>
+    <li style="float:right"><a class="active" th:href="@{register}">Create User</a></li>
+</ul>
 <h1 class="registerText">Create an account</h1>
 
 <form action="/doRegister" method="post">

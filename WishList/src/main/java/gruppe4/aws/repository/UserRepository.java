@@ -83,4 +83,20 @@ public class UserRepository {
 
         return false;
     }
+
+    public void deleteUser(String accountName) {
+
+        try {
+            Connection userConnection = DBManager.getConnection();
+            PreparedStatement preparedStatement1 = userConnection.prepareStatement("DELETE FROM betaWishes WHERE USERACCOUNTNAME = ?");
+            preparedStatement1.setString(1, accountName);
+            preparedStatement1.executeUpdate();
+            PreparedStatement preparedStatement2 = userConnection.prepareStatement("DELETE FROM betaUsers WHERE USERACCOUNTNAME = ?");
+            preparedStatement2.setString(1, accountName);
+            preparedStatement2.executeUpdate();
+
+        } catch (SQLException error) {
+            System.out.printf(error.getMessage());
+        }
+    }
 }

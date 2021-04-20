@@ -21,5 +21,12 @@
     <p class="text">Email: <span th:text="${user.getEmail()}"> </span></p>
 </div>
 
+<form action="/deleteAccount" method="post">
+    <div class="deletebutton">
+        <p class="text"> Delete Account: <pre> <input type="text" required placeholder="Account Name" th:name="accountName"> </pre> <br>
+        <input type="submit" value="Delete">
+    </div>
+</form>
+
 </body>
 </html>

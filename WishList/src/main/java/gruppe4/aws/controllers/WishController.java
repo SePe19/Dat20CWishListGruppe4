@@ -26,6 +26,12 @@ public class WishController {
         return "/wish";
     }
 
+    @PostMapping("/deleteWish")
+    public String deleteWish(@RequestParam("wishID")int wishID){
+        makeNewWish.deleteWish(wishID);
+        return "redirect:/wish";
+    }
+
     @GetMapping("/registerWish")
     public String registerWish() {
         DBManager.getConnection();
