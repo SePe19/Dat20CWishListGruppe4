@@ -18,26 +18,24 @@ public class LoginController {
     @PostMapping("/login")
     public String submitLogin(@RequestParam(name = "accountName") String accountName, HttpServletRequest request) {
         DBManager.getConnection();
-        HttpSession session = request.getSession();
-        session.setAttribute("accountName", accountName);
-        session.getAttribute("accountName");
         if (userRepository.validateAccount(accountName) == true) {
-            return "redirect:/wishListHub";
+            HttpSession session = request.getSession();
+            session.setAttribute("accountName", accountName);
+            return "redirect:/account?accountName=" + accountName;
         } else {
             return "redirect:/login";
         }
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
 
     @GetMapping("/logout")
-    public String logout(){
-
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.invalidate();
         return "frontPage";
     }
-
-
 }

@@ -22,7 +22,7 @@ public class AccountController {
     public String account(Model model, HttpServletRequest request) {
         DBManager.getConnection();
         HttpSession session = request.getSession();
-        String accountName = session.getAttribute("accountName").toString();
+        String accountName = (String) session.getAttribute("accountName");
 
         User currentUser = newUser.getAccount(accountName);
         if(currentUser == null)
@@ -31,7 +31,6 @@ public class AccountController {
         model.addAttribute("user", currentUser);
         return "account";
     }
-
     @GetMapping("/register")
     public String register() {
         DBManager.getConnection();

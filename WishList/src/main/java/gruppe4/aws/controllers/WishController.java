@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 public class WishController {
     WishRepository makeNewWish = new WishRepository();
 
-    @GetMapping("/Wish")
-    public String wish(Model model) {
+    @GetMapping("/wish")
+    public String wish(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        String accountName = (String) session.getAttribute("accountName");
+        ArrayList<Wish> userWishList = makeNewWish.getAccountWishList(accountName);
+        model.addAttribute("userWishList", userWishList);
         return "/wish";
     }
 
@@ -28,11 +33,13 @@ public class WishController {
     }
 
     @PostMapping("/createWish")
-    public String createWish(HttpServletRequest request, @RequestParam("wishName") String wishName, @RequestParam("wishComment") String wishComment, @RequestParam("wishLink") String wishLink, @RequestParam("wishRank") int wishRank, @RequestParam("wishPrice") double wishPrice) {
+    public String createWish(HttpServletRequest request, @RequestParam("wishName") String wishName,
+                             @RequestParam("wishComment") String wishComment, @RequestParam("wishLink") String wishLink,
+                             @RequestParam("wishRank") int wishRank, @RequestParam("wishPrice") double wishPrice) {
+
         HttpSession session = request.getSession();
         String accountName = (String) session.getAttribute("accountName");
         makeNewWish.makeWish(wishName, wishComment, wishLink, wishRank, wishPrice, accountName);
-
-        return "redirect:/wishList";
+        return "redirect:/wish";
     }
 }

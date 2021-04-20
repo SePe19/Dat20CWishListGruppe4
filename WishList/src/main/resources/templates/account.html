@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Page</title>
-    <link rel="stylesheet" href="frontPage.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <ul>
@@ -11,14 +11,14 @@
     <li style="float:right"><a class="active" th:href="@{account}">Account</a></li>
     <li style="float:left"><a th:href="@{wishListHub}">WishListHub</a></li>
     <li style="float:left"><a th:href="@{registerWish}">Create Wish</a></li>
-    <li style="float:left"><a th:href="@{wishList}">Your WishList</a></li>
+    <li style="float:left"><a th:href="@{wish}">Your WishList</a></li>
 </ul>
 <h1 class="accountText">Account</h1>
 
 <div class="container">
-    <p class="text">Account Name: <span th:text="${user.accountName}"> </span></p>
-    <p class="text">Name: <span th:text="${user.name}"> </span></p>
-    <p class="text">Email: <span th:text="${user.email}"> </span></p>
+    <p class="text">Account Name: <span th:text="${user.getAccountName()}"> </span></p>
+    <p class="text">Name: <span th:text="${user.getName()}"> </span></p>
+    <p class="text">Email: <span th:text="${user.getEmail()}"> </span></p>
 </div>
 
 </body>

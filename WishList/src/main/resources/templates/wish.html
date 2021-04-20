@@ -11,16 +11,18 @@
   <li style="float:right"><a th:href="@{account}">Account</a></li>
   <li style="float:left"><a th:href="@{wishListHub}">WishListHub</a></li>
   <li style="float:left"><a th:href="@{registerWish}">Create Wish</a></li>
-  <li style="float:left"><a class="active" th:href="@{wishList}">Your WishList</a></li>
+  <li style="float:left"><a class="active" th:href="@{wish}">Your WishList</a></li>
 </ul>
 <h1 class="wishText">Your Wish</h1>
-<tr th:each="wish : ${wishList}">
+
+<tr th:each="userWishList : ${userWishList}">
   <div class="container">
-    <p class="text">Wish Name: <span th:text="${wish.wishName}"> </span></p>
-    <p class="text">Wish Comment: <span th:text="${wish.wishComment}"> </span></p>
-    <p class="text">Wish Link: <span th:text="${wish.wishLink}"> </span></p>
-    <p class="text">Wish Rank: <span th:text="${wish.wishRank}"> </span></p>
-    <p class="text">Wish Price: <span th:text="${wish.wishPrice}"> </span></p><br><br>
+    <p class="text">Account Name: <span th:text="${userWishList.getAccountName()}"> </span></p>
+    <p class="text">Wish Name: <span th:text="${userWishList.wishName}"> </span></p>
+    <p class="text">Wish Comment: <span th:text="${userWishList.wishComment}"> </span></p>
+    <p class="text">Wish Link: <span th:text="${userWishList.wishLink}"> </span></p>
+    <p class="text">Wish Rank: <span th:text="${userWishList.wishRank}"> </span></p>
+    <p class="text">Wish Price: <span th:text="${userWishList.wishPrice}"> </span></p><br><br>
   </div>
 
 </body>

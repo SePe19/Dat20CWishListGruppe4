@@ -2,6 +2,7 @@ package gruppe4.aws.repository;
 
 import gruppe4.aws.models.Wish;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +11,14 @@ import java.util.ArrayList;
 
 public class WishRepository {
 
-    public ArrayList<Wish> showAllWishes() {
+
+    public ArrayList<Wish> showAllWishesFromUser(String accountName) {
         ArrayList<Wish> allWishes = new ArrayList<>();
 
         try {
             Connection userConnection = DBManager.getConnection();
-            PreparedStatement userStatement = userConnection.prepareStatement("SELECT * FROM betaWishes");
+            PreparedStatement userStatement = userConnection.prepareStatement("SELECT * FROM betaWishes Where USERACCOUNTNAME=?");
+            userStatement.setString(1,accountName);
             ResultSet userRS = userStatement.executeQuery();
 
             while (userRS.next()) {
@@ -39,5 +42,15 @@ public class WishRepository {
         } catch (SQLException error) {
             System.out.printf(error.getMessage());
         }
+    }
+
+    public ArrayList<Wish> getAccountWishList(String accountName){
+        ArrayList<Wish> allWishes;
+        ArrayList<Wish> userWishList = new ArrayList<>();
+        allWishes = showAllWishesFromUser(accountName);
+        for (int i = 0; i < allWishes.size(); i++){
+            userWishList.add(allWishes.get(i));
+        }
+        return userWishList;
     }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head>
+    <link rel="stylesheet" href="main.css">
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+<div class="login">
+    <h1>Welcome to WishList</h1>
+    <div class="loginform">
+        <header>Log in</header>
+        <form action="/login" method="post">
+            <div class="field">
+                <input type="text" name="accountName" required placeholder="Account Name">
+
+            </div>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -74,4 +74,17 @@ public class Wish {
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
+
+    @Override
+    public String toString() {
+        return "Wish{" +
+                "wishID=" + wishID +
+                ", wishName='" + wishName + '\'' +
+                ", wishComment='" + wishComment + '\'' +
+                ", wishLink='" + wishLink + '\'' +
+                ", wishRank=" + wishRank +
+                ", wishPrice=" + wishPrice +
+                ", accountName='" + accountName + '\'' +
+                '}';
+    }
 }
